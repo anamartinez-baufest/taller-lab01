@@ -11,3 +11,14 @@ services:
     environment:
       - SECRET_KEY=changeme-supersecret-key-change-in-production
     restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: flowops-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
