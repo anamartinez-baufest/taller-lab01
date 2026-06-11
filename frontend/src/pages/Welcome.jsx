@@ -1,6 +1,69 @@
 import { useNavigate } from 'react-router-dom';
 import { logout, getAccessToken } from '../services/auth';
 
+const MS_CERTIFICATIONS_2026 = [
+  {
+    code: 'AI-901',
+    name: 'Azure AI Fundamentals',
+    level: 'Fundamentals',
+    levelColor: '#0EA5E9',
+    levelBg: '#E0F2FE',
+    description:
+      'New 2026 fundamentals certification covering AI concepts, responsible AI principles, and hands-on implementation with Microsoft Azure AI Foundry and Python.',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/',
+  },
+  {
+    code: 'SC-500',
+    name: 'Cloud and AI Security Engineer Associate',
+    level: 'Associate',
+    levelColor: '#7C3AED',
+    levelBg: '#EDE9FE',
+    description:
+      'Replaces AZ-500 in 2026. Validates skills to implement end-to-end security controls for cloud and AI workloads using Microsoft Entra ID, Defender for Cloud, and Azure Key Vault.',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/cloud-ai-security-engineer/',
+  },
+  {
+    code: 'MS-721',
+    name: 'Collaboration Communications Systems Engineer Associate',
+    level: 'Associate',
+    levelColor: '#059669',
+    levelBg: '#D1FAE5',
+    description:
+      'Design, deploy, and manage Microsoft Teams collaboration and communication solutions. Added as a new skilling option for the Teams specializations in 2026.',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/m365-collaboration-communications-systems-engineer/',
+  },
+  {
+    code: 'SC-400',
+    name: 'Information Security Administrator Associate',
+    level: 'Associate',
+    levelColor: '#D97706',
+    levelBg: '#FEF3C7',
+    description:
+      'Plan and implement information protection and governance for sensitive data using Microsoft Purview, covering data loss prevention, retention policies, and compliance.',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/information-protection-administrator/',
+  },
+  {
+    code: 'SC-200',
+    name: 'Security Operations Analyst Associate',
+    level: 'Associate',
+    levelColor: '#DC2626',
+    levelBg: '#FEE2E2',
+    description:
+      'Investigate, hunt for, and mitigate threats using Microsoft Sentinel, Microsoft Defender for Cloud, and Microsoft 365 Defender in modern security operations centers.',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/security-operations-analyst/',
+  },
+  {
+    code: 'AZ-204',
+    name: 'Developing Solutions for Microsoft Azure',
+    level: 'Associate',
+    levelColor: '#2563EB',
+    levelBg: '#DBEAFE',
+    description:
+      'Design, build, test, and maintain cloud applications and services on Microsoft Azure. Covers compute, storage, security, caching, and integration with Azure AI services.',
+    url: 'https://learn.microsoft.com/en-us/credentials/certifications/azure-developer/',
+  },
+];
+
 function parseJwtPayload(token) {
   try {
     const base64 = token.split('.')[1];
@@ -149,6 +212,45 @@ export default function Welcome() {
               <span style={styles.infoKey}>Backend</span>
               <span style={styles.infoVal}>FastAPI · JWT Auth API</span>
             </div>
+          </div>
+        </div>
+
+        {/* Microsoft Certifications 2026 section */}
+        <div>
+          <div style={styles.sectionHeader}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 1l1.854 3.756L14 5.528l-3 2.924.708 4.124L8 10.5l-3.708 2.076L5 8.452 2 5.528l4.146-.772L8 1Z" stroke="#111827" strokeWidth="1.25" strokeLinejoin="round"/>
+            </svg>
+            <h2 style={styles.sectionTitle}>Microsoft Certifications 2026</h2>
+          </div>
+          <p style={styles.sectionSubtitle}>
+            Explore the latest Microsoft certifications launched and updated for 2026, covering AI, security, and cloud development.
+          </p>
+          <div style={styles.certGrid}>
+            {MS_CERTIFICATIONS_2026.map((cert) => (
+              <a
+                key={cert.code}
+                href={cert.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={styles.certCard}
+              >
+                <div style={styles.certCardTop}>
+                  <span style={styles.certCode}>{cert.code}</span>
+                  <span style={{ ...styles.certLevel, color: cert.levelColor, background: cert.levelBg }}>
+                    {cert.level}
+                  </span>
+                </div>
+                <div style={styles.certName}>{cert.name}</div>
+                <p style={styles.certDescription}>{cert.description}</p>
+                <div style={styles.certLink}>
+                  Learn more
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -416,5 +518,93 @@ const styles = {
     fontWeight: 500,
     color: '#111827',
     letterSpacing: '0.35px',
+  },
+  /* Certifications 2026 */
+  sectionHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    marginBottom: '6px',
+  },
+  sectionTitle: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '18px',
+    fontWeight: 500,
+    color: '#111827',
+    letterSpacing: '-0.015em',
+    margin: 0,
+  },
+  sectionSubtitle: {
+    fontSize: '14px',
+    fontWeight: 300,
+    color: '#6B7280',
+    lineHeight: '22px',
+    marginBottom: '20px',
+    marginTop: '4px',
+  },
+  certGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+    gap: '16px',
+  },
+  certCard: {
+    backgroundColor: 'rgba(255,255,255,0.92)',
+    backdropFilter: 'blur(4px)',
+    WebkitBackdropFilter: 'blur(4px)',
+    border: '0.8px solid rgba(229,231,235,0.9)',
+    borderRadius: '16px',
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+    boxShadow: 'rgba(0,0,0,0) 0px 0px 0px 0px, rgba(0,0,0,0) 0px 0px 0px 0px, rgba(0,0,0,0.04) 0px 8px 30px 0px',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    transition: 'box-shadow 150ms ease, border-color 150ms ease',
+  },
+  certCardTop: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  certCode: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '12px',
+    fontWeight: 600,
+    color: '#6B7280',
+    letterSpacing: '0.05em',
+    textTransform: 'uppercase',
+  },
+  certLevel: {
+    fontSize: '11px',
+    fontWeight: 500,
+    padding: '2px 8px',
+    borderRadius: '9999px',
+    letterSpacing: '0.35px',
+  },
+  certName: {
+    fontFamily: 'Inter, sans-serif',
+    fontSize: '14px',
+    fontWeight: 500,
+    color: '#111827',
+    lineHeight: '20px',
+    letterSpacing: '0.1px',
+  },
+  certDescription: {
+    fontSize: '13px',
+    fontWeight: 300,
+    color: '#6B7280',
+    lineHeight: '20px',
+    margin: 0,
+    flexGrow: 1,
+  },
+  certLink: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '4px',
+    fontSize: '13px',
+    fontWeight: 500,
+    color: '#111827',
+    marginTop: '4px',
   },
 };
